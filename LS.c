@@ -4,7 +4,7 @@
 #include <dirent.h>
 #define SIZE 256
 
-int main (int argc,char** argv)
+int main (unsigned long argc,char** argv)
 {
     char file [SIZE];
 
@@ -13,17 +13,17 @@ int main (int argc,char** argv)
     else
         strcpy(file, ".");
 
-    printf ("\n", file);
+    printf ("\n");
 
     DIR *directory = opendir(file);
     struct dirent *cd = readdir(directory);
     
     while ( (cd = readdir(directory)) != NULL) {
-        printf("%d - %s [%d] %d\n",
+        printf("%u- %s [%u] %d\n",
                cd->d_ino, cd->d_name, cd->d_type, cd->d_reclen);
     }
 
     closedir (directory);
-    return 0;
+        return 0;
 
 }
