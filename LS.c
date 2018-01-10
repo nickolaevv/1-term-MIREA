@@ -20,7 +20,7 @@ int main (unsigned long argc,char** argv)
     
     while ( (cd = readdir(directory)) != NULL) {
         printf("%u- %s [%u] %d\n",
-               cd->d_ino, cd->d_name, cd->d_type, cd->d_reclen);
+               (int)cd->d_ino, cd->d_name, cd->d_type, cd->d_reclen);
     }
 
     closedir (directory);
