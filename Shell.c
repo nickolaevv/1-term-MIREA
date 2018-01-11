@@ -1,5 +1,5 @@
-
 #include <sys/wait.h>
+#include <sys/types.h>
 #include <unistd.h>
 #include <stdlib.h>
 #include <stdio.h>
@@ -19,10 +19,10 @@ void shell_lp(void){
     char **args;
     int status;
     do{
-        printf("> ");
+        printf(">");
         line = shell_read();
         args = shell_split(line);
-        status = shell_exct(args);
+        status = shell_exect(args);
         free(line);
         free(args);
     }while(status);
@@ -87,11 +87,11 @@ char **shell_split(char *line){
     return tokens;
 }
 int shell_launch(char **args){
-    pid_t pid, wpid;
+    pid_t pid;
     int status;
     pid = fork();
     if (pid == 0) {
-        // Add process
+
         if (execvp(args[0], args) == -1) {
             perror("shell");
         }
@@ -100,7 +100,7 @@ int shell_launch(char **args){
         perror("shell");
     } else {
         do {
-            wpid = waitpid(pid, &status, WUNTRACED);
+         waitpid(pid, &status, WUNTRACED);
         } while (!WIFEXITED(status) && !WIFSIGNALED(status));
     }
 
